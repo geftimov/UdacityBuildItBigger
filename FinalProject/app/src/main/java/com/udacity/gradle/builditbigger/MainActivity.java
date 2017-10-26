@@ -7,13 +7,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.eftimoff.jokes.manager.JokesManager;
+import com.eftimoff.jokes.manager.JokesManagerImpl;
+import com.eftimoff.jokes.models.Joke;
+
+import java.util.List;
+import java.util.Random;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    private JokesManager jokesManager;
+    private Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        jokesManager = new JokesManagerImpl();
     }
 
 
@@ -40,7 +51,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+
+        List<Joke> jokes = jokesManager.loadJokes();
+        Joke joke = jokes.get(random.nextInt(jokes.size()));
+
+        Toast.makeText(this, joke.getDescription(), Toast.LENGTH_LONG).show();
     }
 
 

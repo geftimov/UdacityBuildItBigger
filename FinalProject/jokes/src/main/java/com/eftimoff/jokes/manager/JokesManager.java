@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface JokesManager {
 
-    List<Joke> loadJokes();
+    List<String> loadJokes();
 }

@@ -5,11 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import com.eftimoff.jokeandroidlibrary.JokesDescriptionActivity;
 import com.eftimoff.jokes.manager.JokesManager;
 import com.eftimoff.jokes.manager.JokesManagerImpl;
-import com.eftimoff.jokes.models.Joke;
 
 import java.util.List;
 import java.util.Random;
@@ -51,11 +50,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-
-        List<Joke> jokes = jokesManager.loadJokes();
-        Joke joke = jokes.get(random.nextInt(jokes.size()));
-
-        Toast.makeText(this, joke.getDescription(), Toast.LENGTH_LONG).show();
+        List<String> jokes = jokesManager.loadJokes();
+        String joke = jokes.get(random.nextInt(jokes.size()));
+        JokesDescriptionActivity.start(this, joke);
     }
 
 

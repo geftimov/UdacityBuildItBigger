@@ -18,6 +18,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:2.0.1'
+    }
+
+}
+
+// Exclude compiling httpclient to avoid warning message
+// https://stackoverflow.com/questions/28929811/android-gradle-build-with-firebase-dependency-has-warnings-ignoring-httpclient
+configurations {
+    compile.exclude group: "org.apache.httpcomponents", module: "httpclient"
 }
 
 dependencies {
@@ -25,8 +36,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.google.android.gms:play-services-ads:9.8.0'
     compile project(':jokes')
     compile project(':jokeandroidlibrary')
+    compile 'com.google.android.gms:play-services-ads:11.4.2'
+    compile 'com.google.api-client:google-api-client-android:1.23.0'
+    compile 'com.google.http-client:google-http-client-gson:1.23.0'
+    compile 'com.google.code.findbugs:jsr305:2.0.1'
+//    compile project(path: ':backend', configuration: 'android-endpoints')
 }

@@ -19,6 +19,15 @@ android {
         }
     }
 
+    productFlavors {
+        free {
+            applicationIdSuffix ".free"
+        }
+        paid {
+            applicationIdSuffix ".paid"
+        }
+    }
+
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:2.0.1'
     }
@@ -32,16 +41,17 @@ configurations {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    freeCompile 'com.google.android.gms:play-services-ads:11.4.2'
+
     compile project(':jokes')
     compile project(':jokeandroidlibrary')
-    //    compile project(path: ':backend', configuration: 'android-endpoints')
-    compile 'com.google.android.gms:play-services-ads:11.4.2'
+
+    compile project(path: ':backend', configuration: 'android-endpoints')
     compile 'com.google.api-client:google-api-client-android:1.23.0'
     compile 'com.google.http-client:google-http-client-gson:1.23.0'
     compile 'com.google.code.findbugs:jsr305:2.0.1'
-    compile project(path: ':backend', configuration: 'android-endpoints')
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }

@@ -6,26 +6,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.eftimoff.jokeandroidlibrary.JokesDescriptionActivity;
-import com.eftimoff.jokes.manager.JokesManager;
-import com.eftimoff.jokes.manager.JokesManagerImpl;
-
-import java.util.List;
-import java.util.Random;
-
-
 public class MainActivity extends AppCompatActivity {
-
-    private JokesManager jokesManager;
-    private Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        jokesManager = new JokesManagerImpl();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,10 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        List<String> jokes = jokesManager.loadJokes();
-        String joke = jokes.get(random.nextInt(jokes.size()));
-        JokesDescriptionActivity.start(this, joke);
+        new EndpointsAsyncTask(this).execute();
     }
-
 
 }
